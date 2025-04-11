@@ -43,7 +43,7 @@ def main(page: ft.Page):
         '7': '--...',
         '8': '---..', 
         '9': '----.', 
-        ' ': '/'
+        ' ': ''
     }
 
     PolarCenit = {
@@ -74,13 +74,13 @@ def main(page: ft.Page):
         result = ""
         for char in text.upper():
             if char in Morse:
-                result += Morse[char] + " "
+                result += Morse[char] + "/"
             else:
                 result += "? "
-        return result.strip()
+        return result.strip("/")
 
     def MorseToLetters(code):
-        words = code.split(" ")
+        words = code.split("/")
         result = ""
         for word in words:
             found = False
@@ -104,7 +104,7 @@ def main(page: ft.Page):
                     number += 1
                 result += str(number) + " "
             else:
-                result += "? "
+                result += "?"
         return result.strip()
 
     def a1z26ToLetters(code):
@@ -169,7 +169,7 @@ def main(page: ft.Page):
                 output.value = PolarToLetters(text)
         page.update()
 
-    def copy_result(e):
+    def CopyPaste(e):
         pyperclip.copy(output.value)
         output.value += "(result successfully copied)"
         page.update()
@@ -180,7 +180,7 @@ def main(page: ft.Page):
         ft.Row([
             ft.ElevatedButton("Encrypt", on_click=lambda e: EncryptAndDecrypt(True)),
             ft.ElevatedButton("Decrypt", on_click=lambda e: EncryptAndDecrypt(False)),
-            ft.ElevatedButton("Copy", on_click=copy_result)
+            ft.ElevatedButton("Copy", on_click=CopyPaste)
         ]),
         output
     ]))
